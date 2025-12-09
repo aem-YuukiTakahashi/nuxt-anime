@@ -1,0 +1,26 @@
+{
+  "name": "nuxt-anime",
+  "version": "1.0.0",
+  "description": "Nuxt2環境でのテスト",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "nuxt": "^2.17.3",
+    "vue": "^2.7.14",
+    "lenis": "1.1.6",
+    "gsap": "^3.12.5"
+  },
+  "devDependencies": {
+    "@nuxtjs/router": "^1.7.0",
+    "@nuxtjs/google-fonts": "^1.0.4"
+  },
+  "volta": {
+    "node": "20.15.1",
+    "npm": "10.7.0"
+  }
+}

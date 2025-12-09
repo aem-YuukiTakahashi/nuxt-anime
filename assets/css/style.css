@@ -1,0 +1,52 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #333;
+  background-color: #fff;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+img {
+  vertical-align: bottom;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  outline: none;
+  text-decoration: none;
+}
+
+*:focus {
+  outline: none;
+}
+
+body,
+html {
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: unset;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 2dppx) {
+
+  body,
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
