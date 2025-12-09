@@ -32,8 +32,8 @@ export default {
 
   // プラグイン設定
   plugins: [
+    { src: '~/plugins/gsap.client.js', mode: 'client' },
     { src: '~/plugins/lenis.client.js', mode: 'client' },
-    { src: '~/plugins/gsap.client.js', mode: 'client' }
   ],
 
   // GitHub Pages用のbase設定
