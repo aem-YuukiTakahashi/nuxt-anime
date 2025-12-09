@@ -52,7 +52,7 @@ export default {
 
   // ビルド出力設定
   generate: {
-    dir: 'dist'
+    dir: 'docs'
   },
 
 }
