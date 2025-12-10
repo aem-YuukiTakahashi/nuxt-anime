@@ -10,14 +10,14 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "nuxt": "^2.17.3",
-    "vue": "^2.7.14",
+    "gsap": "^3.13.0",
     "lenis": "1.1.6",
-    "gsap": "^3.12.5"
+    "nuxt": "^2.17.3",
+    "vue": "^2.7.14"
   },
   "devDependencies": {
-    "@nuxtjs/router": "^1.7.0",
-    "@nuxtjs/google-fonts": "^1.0.4"
+    "@nuxtjs/google-fonts": "^1.0.4",
+    "@nuxtjs/router": "^1.7.0"
   },
   "volta": {
     "node": "20.15.1",
