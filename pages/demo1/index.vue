@@ -5,20 +5,20 @@
     </div>
 
     <section class="section">
-      <h2 class="section__title">Section 1</h2>
+      <h2 class="section__title js-section-title">Section 1</h2>
       <div class="section__content">
       </div>
     </section>
 
     <section class="section">
-      <h2 class="section__title">Section 2</h2>
+      <h2 class="section__title js-section-title">Section 2</h2>
       <div class="section__content">
 
       </div>
     </section>
 
     <section class="section">
-      <h2 class="section__title">Section 3</h2>
+      <h2 class="section__title js-section-title">Section 3</h2>
       <div class="section__content">
       </div>
     </section>
@@ -42,6 +42,7 @@ export default {
   data() {
     return {
       ctx: null,
+      sectionTitle: null,
     }
   },
   beforeDestroy() {
@@ -60,6 +61,11 @@ export default {
     }
   },
   mounted() {
+
+    this.$nextTick(() => {
+      this.initSplitText();
+    });
+
     this.ctx = this.$gsap.context(() => {
 
       this.$gsap.set('.js-hero-image', {
@@ -107,6 +113,11 @@ export default {
     scrollToTop() {
       this.$lenis.scrollTo(0);
     },
+    initSplitText() {
+      this.sectionTitle = this.$SplitText.create('.js-section-title', {
+        type: "words, chars",
+      });
+    }
   },
 }
 </script>
