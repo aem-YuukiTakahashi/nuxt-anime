@@ -81,9 +81,6 @@ export default {
           yPercent: 20,
         });
 
-
-        console.log(this.sectionTitle);
-
         this.sectionTitle.forEach((item, index) => {
           this.$gsap.set(item.chars, {
             opacity: 0,
@@ -165,7 +162,6 @@ export default {
 
 .section {
   width: 100%;
-  min-height: 100vh;
   padding: 80px 0;
 }
 
