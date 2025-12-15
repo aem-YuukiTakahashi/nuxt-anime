@@ -1,5 +1,5 @@
 <template>
-  <div class="demo1">
+  <div class="demo3">
     <div class="hero">
       <img src="https://picsum.photos/id/10/2500/1667" alt="hero image" class="hero__image js-hero-image" />
     </div>
@@ -15,10 +15,22 @@
       <div class="section__content">
 
       </div>
+      <div class="text-infinite-scroll js-text-infinite-scroll">
+        <div class="text-infinite-scroll__inner">
+          <p>SCROLL TEXT SCROLL TEXT SCROLL TEXT SCROLL TEXT SCROLL TEXT SCROLL TEXT SCROLL TEXT SCROLL TEXT&nbsp;</p>
+          <p>SCROLL TEXT SCROLL TEXT SCROLL TEXT SCROLL TEXT SCROLL TEXT SCROLL TEXT SCROLL TEXT SCROLL TEXT&nbsp;</p>
+        </div>
+      </div>
     </section>
 
     <section class="section js-section-3">
       <h2 class="section__title js-section-title js-section-title-3">SECTION 3</h2>
+      <div class="section__content">
+      </div>
+    </section>
+
+    <section class="section js-section-4">
+      <h2 class="section__title js-section-title js-section-title-4">SECTION 4</h2>
       <div class="section__content">
       </div>
     </section>
@@ -38,11 +50,18 @@
 <script>
 export default {
   layout: 'page',
-  name: 'Demo1Page',
+  name: 'Demo3Page',
   data() {
     return {
       ctx: null,
       sectionTitle: [],
+      textInfiniteScrollWrap: null,
+      textInfiniteScrollxTo: null,
+      textInfiniteScrollWheel: 0,
+      textInfiniteScrollTotal: 0,
+      textInfiniteScrollIsWheelingTimerId: null,
+      textInfiniteScrollGsapObserver: null,
+
     }
   },
   beforeDestroy() {
@@ -59,13 +78,48 @@ export default {
         });
       }, 500);
     }
+
+    this.$gsap.ticker.remove(this.tickerInfiniteScroll);
+    window.removeEventListener('resize', this.resizeHandler);
   },
   mounted() {
 
     this.$nextTick(() => {
       this.initSplitText();
 
+      this.$gsap.ticker.add(this.tickerInfiniteScroll);
+      this.resizeHandler();
+      window.addEventListener('resize', this.resizeHandler);
+
       this.ctx = this.$gsap.context(() => {
+
+        const content = document.querySelector('.js-text-infinite-scroll .text-infinite-scroll__inner');
+        const half = document.querySelector('.js-text-infinite-scroll .text-infinite-scroll__inner p').clientWidth;
+
+        this.textInfiniteScrollWrap = this.$gsap.utils.wrap(-half, 0);
+        this.textInfiniteScrollxTo = this.$gsap.quickTo(content, 'x', {
+          duration: 0.5,
+          ease: 'power3',
+          modifiers: {
+            x: (value) => this.$gsap.utils.unitize(this.textInfiniteScrollWrap)(value),
+          },
+        });
+
+        this.textInfiniteScrollGsapObserver = this.$Observer.create({
+          target: '.demo3',
+          type: 'wheel, scroll', // Handles wheel, touch, and drag
+          onChangeY: (self) => {
+            if (self.event.type === 'wheel') {
+              this.textInfiniteScrollWheel = self.deltaY;
+            } else {
+              this.textInfiniteScrollWheel = self.deltaY * 1.1;
+            }
+            clearTimeout(this.textInfiniteScrollIsWheelingTimerId); // setTimeout is cancelled
+            this.textInfiniteScrollIsWheelingTimerId = setTimeout(() => {
+              this.textInfiniteScrollWheel = 0; // Force a reset of the wheel value if we dont enter the event after 66ms
+            }, 33);
+          },
+        });
 
         this.$gsap.set('.js-hero-image', {
           yPercent: -20,
@@ -90,7 +144,7 @@ export default {
           this.$gsap.to(item.chars, {
             scrollTrigger: {
               trigger: `.js-section-title-${index + 1}`,
-              start: 'top 50%',
+              start: 'top 85%',
             },
             opacity: 1,
             y: 0,
@@ -142,6 +196,18 @@ export default {
           }));
         });
       }
+    },
+    tickerInfiniteScroll(time, dt) {
+      console.log('tickerInfiniteScroll');
+      if (this.textInfiniteScrollxTo) {
+        this.textInfiniteScrollTotal -= this.textInfiniteScrollWheel + dt / 5;
+        this.textInfiniteScrollxTo(this.textInfiniteScrollTotal);
+      }
+    },
+    resizeHandler() {
+      console.log('resize');
+      const half = document.querySelector('.js-text-infinite-scroll .text-infinite-scroll__inner p').clientWidth;
+      this.textInfiniteScrollWrap = this.$gsap.utils.wrap(-half, 0);
     }
   },
 }
@@ -220,5 +286,25 @@ export default {
   font-weight: 700;
   color: #fff;
   padding: 0;
+}
+
+.text-infinite-scroll {
+  width: 100%;
+  padding: 16px 0;
+  overflow: hidden;
+}
+
+.text-infinite-scroll__inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.text-infinite-scroll__inner p {
+  font-size: 8rem;
+  font-weight: 700;
+  color: #000;
+  white-space: nowrap;
 }
 </style>

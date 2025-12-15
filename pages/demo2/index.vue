@@ -34,7 +34,7 @@
 <script>
 export default {
   layout: 'page',
-  name: 'Demo1Page',
+  name: 'Demo2Page',
   data() {
     return {
       ctx: null,

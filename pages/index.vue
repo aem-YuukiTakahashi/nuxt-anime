@@ -6,6 +6,12 @@
       <div class="link-item">
         <NuxtLink to="/demo1" class="link-item__link">Demo1</NuxtLink>
       </div>
+      <div class="link-item">
+        <NuxtLink to="/demo2" class="link-item__link">Demo2</NuxtLink>
+      </div>
+      <div class="link-item">
+        <NuxtLink to="/demo3" class="link-item__link">Demo3</NuxtLink>
+      </div>
     </div>
   </div>
 </template>
